@@ -1,0 +1,32 @@
+.card-container{
+    border-radius: 20px;
+    transition: all .5s;
+}
+.add-body{
+    bottom: 0;
+    height: 80px;
+    overflow: hidden;
+    transition: all .5s;
+}
+.card-container:hover .add-body{
+    height: 100%;
+}
+
+.card-container:hover .add-body .icon{
+    display: flex;
+}
+.card-container:hover .add-body .Instructor{
+    display: flex;
+    transition: all;
+}
+.card-container:hover .add-body .data{
+    font-weight: bolder;
+}
+.icon{
+    display: none;
+    transition: all;
+}
+.Instructor{
+    display: none;
+    transition: all;
+}
