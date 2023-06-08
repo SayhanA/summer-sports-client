@@ -6,6 +6,8 @@ import Instructors from "../Pages/Instructors/Instructors/Instructors";
 import Classes from "../Pages/Classes/Classes/Classes";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import InstructorClasses from "../Pages/Instructors/InstructorClasses/InstructorClasses";
+import Login from "../Pages/Login/Login";
+import SingUp from "../Pages/SingUp/SingUp";
 
 const router = createBrowserRouter([
     {
@@ -32,6 +34,14 @@ const router = createBrowserRouter([
             {
                 path: "contact",
                 element: <ContactUs />
+            },
+            {
+                path: "login",
+                element: <Login />
+            },
+            {
+                path: "signUp",
+                element: <SingUp />
             },
         ]
     }
