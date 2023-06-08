@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './NavBar.css'
 import ActiveLink from '../../components/ActiveLink/ActiveLink';
 import { Link } from 'react-router-dom';
-import { FaRegUserCircle, FaTrashAlt } from 'react-icons/fa';
+import { FaRegUserCircle } from 'react-icons/fa';
+import { AuthContext } from '../../providers/AuthProvider';
 // import DarkMode from '../../component/DarkMode/DarkMode';
 
 const NavBar = () => {
     const [open, setOpen] = useState(false);
     // const [ isAdmin ] = useAdmin();
     const item = false;
-    const user = false;
+    const { user, LogOut } = useContext(AuthContext);
+
+    console.log("user image",user?.photoURL)
 
     return (
         <div className="absolute flex items-center bg-[#00000050] w-full lg:px-[5%] z-50 lg:gap-6">
@@ -55,11 +58,11 @@ const NavBar = () => {
                         <div tabIndex={1} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow rounded-md z-50">
                             <div className="card-body rounded-sm">
                                 {item.length === 0 ? <p className=' text-center font-bold'>Please add some recipes</p> : <span className="font-bold text-lg ">{item.length} Items</span>}
-                                <div className=''>
+                                {/* <div className=''>
                                     {
-                                        item.map(id => <p key={id} className=' flex justify-between mb-2'>{id} <FaTrashAlt className='text-red-500' /> </p>)
+                                        item?.map(id => <p key={id} className=' flex justify-between mb-2'>{id} <FaTrashAlt className='text-red-500' /> </p>)
                                     }
-                                </div>
+                                </div> */}
                                 <div className="card-actions">
                                     <button className="btn btn-warning h-5 btn-block normal-case">Clear all</button>
                                 </div>
@@ -77,12 +80,12 @@ const NavBar = () => {
                             <div className="w-10 rounded-full">
                                 {/* <img src={user?.photoURL} /> */}
                                 {
-                                    user.photoURL ? <img src={user.photoURL} title={user && user.displayName} /> : <div className="text-4xl flex justify-center items-center text-gray-500"><FaRegUserCircle /></div>
+                                    user.photoURL ? <img src={user?.photoURL} title={user && user?.displayName} /> : <div className="text-4xl flex justify-center items-center text-gray-500"><FaRegUserCircle /></div>
                                 }
                             </div>
                         </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50">
-                            <li><p>{user.displayName}</p></li>
+                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50 ">
+                            <li><p>{user?.displayName}</p></li>
                             <li>
                                 <Link to="/profile" className="justify-between" title='Click Here to see your profile details'>
                                     Profile
@@ -90,7 +93,7 @@ const NavBar = () => {
                                 </Link>
                             </li>
                             {/* <li><a>Settings</a></li> */}
-                            <li title='Click here to logOut'><a className='z-50' >Logout</a></li>
+                            <li onClick={() => LogOut()} title='Click here to logOut'><a className='z-50 text-black font-bold' >Logout</a></li>
                         </ul>
                     </div>
                 </div>

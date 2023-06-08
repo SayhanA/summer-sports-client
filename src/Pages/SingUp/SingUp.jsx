@@ -1,18 +1,35 @@
 import  { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FaFacebookF, FaGithub, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+import {  FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../providers/AuthProvider';
+import ContinueLogin from '../../components/ContinueLogIn/ContinueLogin';
 
 const SignUp = () => {
     const [show, setShow] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
+    const { SignUp } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data)
+        if(data.password === data.confirmPassword){
+            SignUp(data.email, data.password)
+            .then(userCredential => {
+                const user = userCredential.user;
+                console.log(user)
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
+
+        }
+        else{
+            console.log('set password and confirm password are not same.')
+        }
     };
 
-    console.log(errors)
+    // console.log(errors)
 
     return (
         <div className="">
@@ -31,18 +48,8 @@ const SignUp = () => {
 
                     </div>
 
-                    <div className='w-9/12 mx-auto flex gap-5 justify-center mb-10'>
-                        <button className="h-14 w-14 hover:scale-110 transition-all overflow-hidden border-4 rounded-full p-2 border-blue-400">
-                            <img src="https://cdn-icons-png.flaticon.com/512/2991/2991148.png" alt="" />
-                        </button>
-                        <button className="h-14 w-14 hover:scale-110 transition-all overflow-hidden border-4 rounded-full p-2 border-blue-500">
-                            <FaFacebookF className='w-full h-full text-blue-500' />
-                        </button>
-                        <button className="h-14 w-14 hover:scale-110 transition-all overflow-hidden border-4 rounded-full p-2 border-black">
-                            <FaGithub className='w-full h-full text-black' />
-                        </button>
-
-                    </div>
+                    <ContinueLogin />
+                    
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className="card flex-shrink-0 w-full lg:w-8/12 mx-auto">
 
@@ -74,12 +81,12 @@ const SignUp = () => {
                         <div className="relative z-0 w-full mb-6 group">
                             <input type={show ? "text" : "password"} {...register("password", {
                                 minLength: 6,
-                                maxLength: 20,
-                                pattern: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6}$/
+                                maxLength: 20, //TODO
+                                // pattern: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).$/
                             })} name="password" id="password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                             {errors?.password?.type === 'minLength' && <p className='text-red-500 font-bold'>Minimum 6 character needed</p>}
                             {errors?.password?.type === 'maxLength' && <p className='text-red-500 font-bold'>Maximum 20 character used</p>}
-                            {errors?.password?.type === 'pattern' && <p className='text-red-500 font-bold'>Password is not strong enough</p>}
+                            {/* {errors?.password?.type === 'pattern' && <p className='text-red-500 font-bold'>Password is not strong enough</p>} */}
 
                             <div onClick={() => setShow(!show)} className='absolute right-5 top-3 text-xl text-gray-400 z-10'>
                                 {
@@ -92,12 +99,12 @@ const SignUp = () => {
                         <div className="relative z-0 w-full mb-6 group">
                             <input type={showConfirm ? "text" : "password"} {...register("confirmPassword", {
                                 minLength: 6,
-                                maxLength: 20,
-                                pattern: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6}$/
+                                maxLength: 20, //TODO
+                                // pattern: /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{6}$/
                             })} name="confirmPassword" id="confirmPassword" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                             {errors?.confirmPassword?.type === 'minLength' && <p className='text-red-500 font-bold'>Minimum 6 character needed</p>}
                             {errors?.confirmPassword?.type === 'maxLength' && <p className='text-red-500 font-bold'>Maximum 20 character used</p>}
-                            {errors?.confirmPassword?.type === 'pattern' && <p className='text-red-500 font-bold'>Password is not strong enough</p>}
+                            {/* {errors?.confirmPassword?.type === 'pattern' && <p className='text-red-500 font-bold'>Password is not strong enough</p>} */}
 
                             <div onClick={() => setShowConfirm(!showConfirm)} className='absolute right-5 top-3 text-xl text-gray-400 z-10'>
                                 {
