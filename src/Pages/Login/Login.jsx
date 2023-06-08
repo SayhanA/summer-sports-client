@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { set } from 'react-hook-form';
+import  { useContext, useState } from 'react';
 import { FaFacebookF, FaGithub, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+// import { AuthContext } from '../../providers/AuthProvider';
 
 const Login = () => {
     const [show, setShow] = useState(false);
-
+    // const { user } = useContext(AuthContext)
+    // console.log(user)
+    
     return (
         <div className="">
             <div className='h-[75px]'></div>
