@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import ClassCard from '../../../components/ClassCard/ClassCard';
-import PopularInstructors from '../PopularInstructors/PopularInstructors';
+import { useLocation } from 'react-router-dom';
 
 
 const TopClasses = () => {
     const [classes, setClasses] = useState([])
+    const location = useLocation();
+    console.log(location.pathname)
 
     useEffect(() => {
         fetch('http://localhost:5000/classes')
@@ -19,16 +21,20 @@ const TopClasses = () => {
 
     return (
         <>
-            <div className='grid lg:grid-cols-3 gap-10'>
-                {
-                    classes.splice(0, 6).map(data => <ClassCard data={data} key={data._id} />)
-                }
-            </div>
-            <div className='grid lg:grid-cols-3 gap-10'>
-                {
-                    classes.splice(0, 6).map(data => <PopularInstructors data={data} key={data._id} />)
-                }
-            </div>
+            {
+                location.pathname !== '/classes' ? <div className='grid lg:grid-cols-3 gap-10'>
+                    {
+                        classes.splice(0, 6).map(data => <ClassCard data={data} key={data._id} />)
+                    }
+                </div> :
+                    <div className='grid lg:grid-cols-2 gap-10 w-10/12 mx-auto'>
+                        {
+                            classes.map(data => <ClassCard data={data} key={data._id} />)
+                        }
+                    </div>
+            }
+
+
         </>
     );
 };
