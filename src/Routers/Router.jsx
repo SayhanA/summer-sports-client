@@ -8,6 +8,10 @@ import ContactUs from "../Pages/ContactUs/ContactUs";
 import InstructorClasses from "../Pages/Instructors/InstructorClasses/InstructorClasses";
 import Login from "../Pages/Login/Login";
 import SingUp from "../Pages/SingUp/SingUp";
+import Dashboard from "../Layout/Dashboard";
+import MyCart from "../Pages/Dashboard/MyCart/MyCart";
+import PrivateRouter from "./PrivateRouter";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +46,20 @@ const router = createBrowserRouter([
             {
                 path: "signUp",
                 element: <SingUp />
+            },
+        ]
+    },
+    {
+        path: 'dashboard',
+        element: <PrivateRouter><Dashboard /></PrivateRouter>,
+        children: [
+            {
+                path: 'mycart',
+                element: <MyCart />
+            },
+            {
+                path: 'allusers',
+                element: <AllUsers />
             },
         ]
     }

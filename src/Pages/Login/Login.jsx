@@ -1,5 +1,5 @@
 import  { useContext, useState } from 'react';
-import { FaFacebookF, FaGithub, FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import ContinueLogin from '../../components/ContinueLogIn/ContinueLogin';

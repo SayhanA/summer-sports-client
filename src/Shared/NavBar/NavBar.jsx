@@ -4,6 +4,7 @@ import ActiveLink from '../../components/ActiveLink/ActiveLink';
 import { Link } from 'react-router-dom';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { AuthContext } from '../../providers/AuthProvider';
+import useCart from '../../hooks/useCart';
 // import DarkMode from '../../component/DarkMode/DarkMode';
 
 const NavBar = () => {
@@ -11,8 +12,8 @@ const NavBar = () => {
     // const [ isAdmin ] = useAdmin();
     const item = false;
     const { user, LogOut } = useContext(AuthContext);
+    const [cart] = useCart();
 
-    console.log("user image",user?.photoURL)
 
     return (
         <div className="absolute flex items-center bg-[#00000050] w-full lg:px-[5%] z-50 lg:gap-6">
@@ -46,30 +47,39 @@ const NavBar = () => {
 
                 {/* { location.pathname == '/login' || location.pathname == '/register' ? "" : "" } */}
 
-                {
+
+                <Link to="/dashboard/mycart" tabIndex={1} className="btn btn-ghost btn-circle">
+                    <div className={` ${location.pathname == '/blog' || location.pathname == '/favorite' || location.pathname == '/aboutUs' ? "indicator" : "text-white indicator"}`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                        <span className="badge badge-sm badge-error indicator-item font-bold">{cart?.length || 0}</span>
+                    </div>
+
+                </Link>
+
+                {/* {
                     user && <div className={location.pathname == '/login' || location.pathname == '/register' ? "hidden" : "dropdown dropdown-end z-50"}>
-                        <label tabIndex={1} className="btn btn-ghost btn-circle">
+                        <Link to="/dashboard/mycart" tabIndex={1} className="btn btn-ghost btn-circle">
                             <div className={` ${location.pathname == '/blog' || location.pathname == '/favorite' || location.pathname == '/aboutUs' ? "indicator" : "text-white indicator"}`}>
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-                                <span className="badge badge-sm badge-error indicator-item font-bold">{item.length}</span>
+                                <span className="badge badge-sm badge-error indicator-item font-bold">{cart?.length || 0}</span>
                             </div>
 
-                        </label>
+                        </Link>
                         <div tabIndex={1} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow rounded-md z-50">
                             <div className="card-body rounded-sm">
                                 {item.length === 0 ? <p className=' text-center font-bold'>Please add some recipes</p> : <span className="font-bold text-lg ">{item.length} Items</span>}
-                                {/* <div className=''>
+                                <div className=''>
                                     {
                                         item?.map(id => <p key={id} className=' flex justify-between mb-2'>{id} <FaTrashAlt className='text-red-500' /> </p>)
                                     }
-                                </div> */}
+                                </div>
                                 <div className="card-actions">
                                     <button className="btn btn-warning h-5 btn-block normal-case">Clear all</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                }
+                } */}
 
             </div>
 

@@ -1,33 +1,79 @@
-import  { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import {  FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../providers/AuthProvider';
 import ContinueLogin from '../../components/ContinueLogIn/ContinueLogin';
+import Swal from 'sweetalert2';
 
 const SignUp = () => {
     const [show, setShow] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
-    const { SignUp } = useContext(AuthContext);
+    const { SignUp, UpdateUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const onSubmit = data => {
-        console.log(data)
-        if(data.password === data.confirmPassword){
+
+        const userName = data.firstName + " " + data.lastName;
+        // TODO: user photo dynamic
+        // const userPhoto = data.image[0].name
+        const userPhoto = 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80'
+
+        if (data.password === data.confirmPassword) {
+            // TODO: navigate, show error on page.
             SignUp(data.email, data.password)
-            .then(userCredential => {
-                const user = userCredential.user;
-                console.log(user)
-            })
-            .catch(error => {
-                console.log(error.message)
-            })
+                .then(userCredential => {
+                    const user = userCredential.user;
+                    console.log(user)
+
+                    // Update user name and image
+
+                    UpdateUser(userName, userPhoto)
+                        .then(() => {
+
+                            const saveUser = { name: userName, email: data.email }
+
+                            fetch('http://localhost:5000/users', {
+                                method: "POST",
+                                headers: {
+                                    'content-type': 'application/json'
+                                },
+                                body: JSON.stringify(saveUser)
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    console.log(data)
+                                    if (data.insertedId) {
+                                        Swal.fire({
+                                            position: 'top-end',
+                                            icon: 'success',
+                                            title: 'Your work has been saved',
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        })
+                                        reset();
+                                        navigate('/')
+                                    }
+                                })
+
+
+                        })
+                        .catch(error => {
+                            console.log(error.message)
+                        })
+
+                })
+                .catch(error => {
+                    console.log(error.message)
+                })
 
         }
-        else{
+        else {
             console.log('set password and confirm password are not same.')
         }
     };
+
 
     // console.log(errors)
 
@@ -40,7 +86,7 @@ const SignUp = () => {
                     <p className="py-6 text-center">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
 
                     <h3 className='text-xl font-bold text-center py-5'>SignUp by felling this form</h3>
-                    
+
                     <div className="flex items-center mb-4 mx-20">
                         <hr className="flex-grow border-gray-300" />
                         <span className="mx-4 text-gray-500">OR</span>
@@ -49,7 +95,7 @@ const SignUp = () => {
                     </div>
 
                     <ContinueLogin />
-                    
+
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)} className="card flex-shrink-0 w-full lg:w-8/12 mx-auto">
 
