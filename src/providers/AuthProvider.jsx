@@ -63,7 +63,17 @@ const AuthProvider = ({ children }) => {
 
 
     // img upload
-   
+    const useImgHook = (data) => {
+        const img_hosting_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_Image_Upload_Token}`
+
+        const formData = new FormData();
+        formData.append('image', data.sportImg[0])
+
+        return fetch(img_hosting_url, {
+            method: "POST",
+            body: formData
+        })
+    };
 
 
     const userInfo = {
@@ -74,7 +84,7 @@ const AuthProvider = ({ children }) => {
         LogOut,
         UpdateUser,
         handleGoogleLogin,
-        
+        useImgHook,
 
     }
 

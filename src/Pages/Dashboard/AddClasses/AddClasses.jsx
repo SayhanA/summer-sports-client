@@ -13,8 +13,15 @@ const AddClasses = () => {
 
         useImgHook(data)
         .then(res => res.json())
-        .then(data => {
-            console.log(data)
+        .then(imgResponse => {
+            console.log(imgResponse)
+            if(imgResponse.success){
+                const imgURL = imgResponse.data.display_url;
+                console.log(imgURL)
+                const classData = data;
+                classData.sportImg = imgURL;
+                console.log(classData)
+            }
         })
         
     };
