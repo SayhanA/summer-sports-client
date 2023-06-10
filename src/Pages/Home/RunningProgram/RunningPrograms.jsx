@@ -19,7 +19,7 @@ const RunningPrograms = () => {
             .catch(error => console.log(error))
     }, [])
 
-    console.log(classes)
+    // console.log(classes)
     const user = false
 
     return (

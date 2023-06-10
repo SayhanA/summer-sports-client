@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 const TopClasses = () => {
     const [classes, setClasses] = useState([])
     const location = useLocation();
-    console.log(location.pathname)
+    // console.log(location.pathname)
 
     useEffect(() => {
         fetch('http://localhost:5000/classes')

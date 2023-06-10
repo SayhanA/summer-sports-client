@@ -6,8 +6,7 @@ import ContinueLogin from '../../components/ContinueLogIn/ContinueLogin';
 
 const Login = () => {
     const [show, setShow] = useState(false);
-    const { user, Login } = useContext(AuthContext)
-    console.log(user)
+    const { Login } = useContext(AuthContext)
 
     const handleSubmit = (event) => {
         event.preventDefault();

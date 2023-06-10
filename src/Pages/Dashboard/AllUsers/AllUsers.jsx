@@ -1,19 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import useTitle from "../../../hooks/useTitle";
-import { FaAngleDoubleDown, FaAngleDown, FaAngleUp, FaTrashAlt } from "react-icons/fa";
+import { FaAngleDown, FaAngleUp, FaTrashAlt } from "react-icons/fa";
 import { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../../providers/AuthProvider";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 
 const AllUsers = () => {
     const { user } = useContext(AuthContext);
-    const [role, setRole] = useState('admin')
-    const [show, setShow] = useState(false)
+    // const [role, setRole] = useState('admin')
+    const [show, setShow] = useState(false);
+
+    const [ axiosSecure ] = useAxiosSecure();
 
     const { data: users = [], refetch } = useQuery(['users'], async () => {
-        const res = await fetch('http://localhost:5000/users')
-        return res.json();
+        const res = await axiosSecure.get('/users')
+        return res.data;
     })
 
     console.log("users form All user", users)
@@ -42,7 +45,7 @@ const AllUsers = () => {
                 console.log(data)
                 if (data.modifiedCount) {
                     refetch();
-                    setRole(data)
+                    // setRole(data)
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',

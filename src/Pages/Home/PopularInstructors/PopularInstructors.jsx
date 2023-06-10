@@ -7,7 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 
 const PopularInstructors = () => {
     const location = useLocation();
-    console.log(location.pathname)
+    // console.log(location.pathname)
 
     const [classes, setClasses] = useState([])
 

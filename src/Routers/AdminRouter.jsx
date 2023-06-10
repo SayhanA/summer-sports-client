@@ -1,11 +1,13 @@
-import { useContext } from 'react';
-import { AuthContext } from '../providers/AuthProvider';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+import useAdmin from '../hooks/useAdmin';
 
-const PrivateRouter = ({ children }) => {
-  const { user, loading } = useContext(AuthContext);
+const AdminRouter = ({ children }) => {
+  const { user, loading } = useAuth();
+  const [isAdmin, isAdminLoading] = useAdmin();
+  const location = useLocation();
 
-  if (loading) {
+  if (loading || isAdminLoading) {
     return <div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto">
       <div className="animate-pulse flex space-x-4">
         <div className="rounded-full bg-slate-200 h-10 w-10"></div>
@@ -22,12 +24,12 @@ const PrivateRouter = ({ children }) => {
       </div>
     </div>
   }
-  if (user) {
+  if (user && isAdmin) {
     return children
   }
   else {
-    return <Navigate to="/login" state={{ from: location }} replace />
+    return <Navigate to="/" state={{ from: location }} replace />
   }
 };
 
-export default PrivateRouter;
+export default AdminRouter;

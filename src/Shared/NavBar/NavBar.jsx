@@ -10,7 +10,6 @@ import useCart from '../../hooks/useCart';
 const NavBar = () => {
     const [open, setOpen] = useState(false);
     // const [ isAdmin ] = useAdmin();
-    const item = false;
     const { user, LogOut } = useContext(AuthContext);
     const [cart] = useCart();
 

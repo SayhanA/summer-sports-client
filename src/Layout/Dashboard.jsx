@@ -5,12 +5,13 @@ import { FiMenu } from "react-icons/fi";
 import useCart from "../hooks/useCart";
 import useTitle from "../hooks/useTitle";
 import { SiMetrodelaciudaddemexico } from "react-icons/si";
+import useAdmin from "../hooks/useAdmin";
 
 
 const Dashboard = () => {
     const [cart] = useCart();
     // TODO: load data from the server to have dynamic isAdmin based on Data
-    const isAdmin = true;
+    const [isAdmin] = useAdmin();
 
     useTitle("Dashboard")
 
@@ -36,7 +37,7 @@ const Dashboard = () => {
                         isAdmin ? <>
 
                             <li ><ActiveLink to="/dashboard/"> <div className="py-2 flex gap-3  font-bold text-lg"><FaHome className='text-2xl'></FaHome> Admin Home </div></ActiveLink></li>
-                            <li ><ActiveLink to="/dashboard/addclass"> <div className="py-2 flex gap-3  font-bold text-lg"><SiMetrodelaciudaddemexico className='text-2xl'></SiMetrodelaciudaddemexico> Add Class </div> </ActiveLink></li>
+                            <li ><ActiveLink to="/dashboard/addclasses"> <div className="py-2 flex gap-3  font-bold text-lg"><SiMetrodelaciudaddemexico className='text-2xl'></SiMetrodelaciudaddemexico> Add A Class </div> </ActiveLink></li>
                             <li ><ActiveLink to="/dashboard/manageclass"> <div className="py-2 flex gap-3  font-bold text-lg"><FaTasks className='text-2xl'></FaTasks> Manage Classes </div> </ActiveLink></li>
                             <li ><ActiveLink to="/dashboard/allusers"> <div className="py-2 flex gap-3  font-bold text-lg"><FaUsers className='text-2xl'></FaUsers> All Users </div> </ActiveLink></li>
                             

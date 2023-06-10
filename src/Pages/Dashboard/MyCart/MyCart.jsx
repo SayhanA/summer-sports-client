@@ -1,4 +1,4 @@
-import React from 'react';
+
 import useTitle from '../../../hooks/useTitle';
 import useCart from '../../../hooks/useCart';
 import { Link } from 'react-router-dom';
