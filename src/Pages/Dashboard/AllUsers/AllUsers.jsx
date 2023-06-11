@@ -116,11 +116,11 @@ const AllUsers = () => {
                         <td> <span className='text-[17px]'>{data.email}</span> </td>
 
                         <td className=" transition-all">
-                            <div className={` text-lg font-bold uppercase text-center border-2 w-[150px] relative ${show === false ? "" : ""} h-[50px] overflow-hidden hover:h-full transition-all absolute`}>
-                                <div onClick={() => handleRole("admin", data)} className="flex justify-between px-5 py-2 text-blue-600 hover:bg-slate-300"> {data.role || "user"} {show ? <FaAngleDown className="text-2xl left-3" /> : <FaAngleUp className="text-2xl  right-3 " />}</div>
-                                <div onClick={() => handleRole("admin", data)} className={`flex justify-between px-5 py-2 text-blue-600 hover:bg-slate-300 ${data.role === "admin" ? "hidden" : ""}`}> admin </div>
-                                <div onClick={() => handleRole("instructor", data)} className={`flex justify-between px-5 py-2 text-blue-600 hover:bg-slate-300 ${data.role === "instructor" ? "hidden" : ""}`}>instructor</div>
-                                <div onClick={() => handleRole("user", data)} className={`flex justify-between px-5 py-2 text-blue-600 hover:bg-slate-300 ${data.role === "user" || data.role === undefined ? "hidden" : ""}`}>user</div>
+                            <div className={`  font-bold uppercase text-center border-2 w-[150px] relative ${show === false ? "" : ""} h-[50px] overflow-hidden hover:h-full transition-all absolute`}>
+                                <div onClick={() => handleRole("admin", data)} className="flex justify-between items-center px-5 py-2 text-blue-600 hover:bg-slate-300"> {data.role || "user"} {show ? <FaAngleDown className="text-2xl left-3" /> : <FaAngleUp className="text-2xl  right-3 " />}</div>
+                                <div onClick={() => handleRole("admin", data)} className={`flex justify-between items-center px-5 py-2 text-blue-600 hover:bg-slate-300 ${data.role === "admin" ? "hidden" : ""}`}> admin </div>
+                                <div onClick={() => handleRole("instructor", data)} className={`flex justify-between items-center px-5 py-2 text-blue-600 hover:bg-slate-300 ${data.role === "instructor" ? "hidden" : ""}`}>instructor</div>
+                                <div onClick={() => handleRole("user", data)} className={`flex justify-between items-center px-5 py-2 text-blue-600 hover:bg-slate-300 ${data.role === "user" || data.role === undefined ? "hidden" : ""}`}>user</div>
                             </div>
                         </td>
 

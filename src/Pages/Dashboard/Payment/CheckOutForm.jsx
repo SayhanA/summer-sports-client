@@ -95,7 +95,7 @@ const CheckoutForm = ({ id, cart, price }) => {
             console.log(cart)
             delete cart._id
             
-            axiosSecure.post('/payment', {...cart,id})
+            axiosSecure.post('/payment', {...cart,id, data: new Date()})
                 .then(res => {
                     console.log(res.data)
                     if (res.data.result?.insertedId) {

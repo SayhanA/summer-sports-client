@@ -99,7 +99,7 @@ const ManageClasses = () => {
     // TODO: Display only Approved Classes in All Classes page
     return (
         <div>
-            <h3>Admin Manage Classes component</h3>
+            <h3 className="text-2xl font-bold font-serif text-center pt-10 pb-5"> Manage Classes</h3>
             <table className="table rounded-xl overflow-hidden mt-2">
                 {/* head */}
                 <thead className='bg-[#cfa059] text-lg'>

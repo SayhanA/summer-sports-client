@@ -15,9 +15,11 @@ const AddClasses = () => {
         setImgLoading(true);
         data.email = user.email;
         data.instructor = user.displayName;
+        data.date = new Date()
         console.log(data);
+        console.log("Image data here:",data.sportImg[0]);
 
-        useImgHook(data)
+        useImgHook(data.sportImg[0])
             .then(res => res.json())
             .then(imgResponse => {
                 console.log(imgResponse)
@@ -117,7 +119,7 @@ const AddClasses = () => {
 
                     </div>
 
-                    <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full"> {imgLoading ? "loading ...." : "Add Class"} </button>
+                    <button type="submit" className="btn text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-4 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 w-full"> {imgLoading ? "loading ...." : "Add Class"} </button>
                 </form>
             </div>
         </div>

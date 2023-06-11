@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { FaTrashAlt } from 'react-icons/fa';
+import moment from 'moment';
 // import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const PaymentHistory = () => {
@@ -26,6 +27,7 @@ const PaymentHistory = () => {
                             <th>  # </th>
                             <th> Name </th>
                             <th> Price </th>
+                            <th>Date</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -42,6 +44,7 @@ const PaymentHistory = () => {
                                 <span className="badge badge-ghost badge-sm">{data.instructor}</span>
                             </td>
 
+                            <td className='font-bold'> { moment(data.data).format("MMM Do YY")} </td>
                             <td className='font-bold'>{data.price} $</td>
                             <td className=''> Standby </td>
 

@@ -1,26 +1,32 @@
-import { useState } from 'react';
-import useAuth from '../../../hooks/useAuth';
+import  { useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useAuth from '../../../hooks/useAuth';
 import { FaTrashAlt } from 'react-icons/fa';
-// import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import moment from 'moment';
 
-const EnrolledClasses = () => {
-    const { user } = useAuth();
+// TODO: If the Class is in the denied state by the admin, at that time, an admin can write feedback explaining why the Class was denied, which will appear in the feedback column
+const InstructorClass = () => {
+    const [classes, setClasses] = useState([]);
+
     const [axiosSecure] = useAxiosSecure();
+    const { user } = useAuth();
 
-    const [payment, setPayment] = useState([])
-
-    axiosSecure.get(`/payment/history/${user.email}`)
+    axiosSecure.get(`/classes/${user.email}`)
         .then(res => {
-            setPayment(res.data)
+            setClasses(res.data)
             console.log(res.data)
         })
 
+    const handleDelete = () => {
+
+    }
+        
+
     return (
-        <div className='w-full lg:px-32'>
-            <h2 className='text-2xl font-bold font-serif text-center py-10'>Enrolled Classes</h2>
+        <div className='w-full px-20'>
+            <h3 className='text-2xl font-serif text-center font-bold py-10'>Instructor Classes</h3>
             <div className='bg-white p-10 rounded-xl'>
-                <table className="table rounded-xl overflow-hidden mt-2 overflow-auto">
+                <table className="table rounded-xl overflow-hidden mt-2">
                     {/* head */}
                     <thead className='bg-[#cfa059] text-lg'>
                         <tr>
@@ -28,12 +34,14 @@ const EnrolledClasses = () => {
                             <th>Class Image</th>
                             <th> Name </th>
                             <th> Price </th>
-                            <th>Status</th>
+                            <th> Status </th>
+                            <th> Status </th>
+                            <th>Post Date</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {payment.map((data, index) => <tr key={data._id}>
+                        {classes.map((data, index) => <tr key={data._id}>
                             <td>
                                 {index + 1}
                             </td>
@@ -53,10 +61,12 @@ const EnrolledClasses = () => {
                             </td>
 
                             <td className='text-lg font-bold'>{data.price} $</td>
+                            <td className=' font-bold'>{data?.status ? data?.status : "Pending"}</td>
 
-                            <td> Running </td>
+                            <td>{moment(data.date).format("MMM Do YY")}</td>
+                            
                             <td>
-                                <button className="btn btn-ghost border-0"> <FaTrashAlt className='text-3xl text-red-500 ' /> </button>
+                                <button onClick={() => handleDelete(data)} className="btn btn-ghost border-0"> <FaTrashAlt className='text-3xl text-red-500 ' /> </button>
                             </td>
                         </tr>)}
 
@@ -70,4 +80,4 @@ const EnrolledClasses = () => {
     );
 };
 
-export default EnrolledClasses;
+export default InstructorClass;

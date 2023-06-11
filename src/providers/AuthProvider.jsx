@@ -28,6 +28,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const UpdateUser = (name, photo) => {
+        console.log("user photo form AuthPorvider: ",photo)
         return updateProfile(auth.currentUser, {
             displayName: name,
             photoURL: photo
@@ -67,7 +68,7 @@ const AuthProvider = ({ children }) => {
         const img_hosting_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_Image_Upload_Token}`
 
         const formData = new FormData();
-        formData.append('image', data.sportImg[0])
+        formData.append('image', data)
 
         return fetch(img_hosting_url, {
             method: "POST",
