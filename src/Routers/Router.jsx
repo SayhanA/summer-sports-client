@@ -14,6 +14,14 @@ import PrivateRouter from "./PrivateRouter";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 import AddClasses from "../Pages/Dashboard/AddClasses/AddClasses";
 import AdminRouter from "./AdminRouter";
+import ManageClasses from "../Pages/Dashboard/ManageClasses/ManageClasses";
+import Payment from "../Pages/Dashboard/Payment/Payment";
+import InstructorRouter from "./InstructorRouter";
+import AdminHome from "../Pages/Dashboard/AdminHome/AdminHome";
+import InstructorHome from "../Pages/Dashboard/InstructorHome/InstructorHome";
+import UserHome from "../Pages/Dashboard/UserHome/UserHome";
+import EnrolledClasses from "../Pages/Dashboard/EnrolledClasses/EnrolledClasses";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 
 const router = createBrowserRouter([
     {
@@ -56,17 +64,52 @@ const router = createBrowserRouter([
         element: <PrivateRouter><Dashboard /></PrivateRouter>,
         children: [
             {
+                path: 'home',
+                element: <UserHome />
+            },
+            {
                 path: 'mycart',
                 element: <MyCart />
             },
             {
+                path: 'payment',
+                element: <Payment />
+            },
+            {
+                path: 'enrolledClasses',
+                element: <EnrolledClasses />
+            },
+            {
+                path: 'paymenthistory',
+                element: <PaymentHistory />
+            },
+            // Admin Routes
+            {
+                path: 'adminhome',
+                element: <AdminRouter><AdminHome /></AdminRouter>
+            },
+            {
                 path: 'allusers',
-                element: <AllUsers />
+                element: <AdminRouter><AllUsers /></AdminRouter>
             },
             {
                 path: 'addclasses',
-                element: <AdminRouter><AddClasses /></AdminRouter>
+                element: <InstructorRouter><AddClasses /></InstructorRouter>
             },
+            {
+                path: 'manageclasses',
+                element: <AdminRouter><ManageClasses /></AdminRouter>
+            },
+
+            // Instructor Routers
+            {
+                path: 'instructorhome',
+                element: <InstructorRouter><InstructorHome /></InstructorRouter>
+            },
+            {
+                path: 'instructorhome',
+                element: <InstructorRouter></InstructorRouter>
+            }
         ]
     }
 ])

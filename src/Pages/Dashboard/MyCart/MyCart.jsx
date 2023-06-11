@@ -2,10 +2,17 @@
 import useTitle from '../../../hooks/useTitle';
 import useCart from '../../../hooks/useCart';
 import { Link } from 'react-router-dom';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaTimes, FaTrashAlt } from 'react-icons/fa';
 import Swal from 'sweetalert2';
+import { Elements } from '@stripe/react-stripe-js';
+import CheckoutForm from '../Payment/checkoutForm';
+import { loadStripe } from '@stripe/stripe-js';
+import { useState } from 'react';
 
 const MyCart = () => {
+    const [display, setDisplay] = useState(false);
+    const [selectedData, setSelectedData] = useState({});
+    const [id, setId] = useState('')
     useTitle("My Cart")
 
     const [cart, refetch] = useCart();
@@ -43,18 +50,29 @@ const MyCart = () => {
             }
         })
     }
+    const handleModalData = (data) => {
+        setDisplay(!display);
+        console.log(data)
+        setSelectedData(data)
+        console.log("data id:",data._id)
+        setId(data?._id)
+    }
+
+    const stripePromise = loadStripe(import.meta.env.VITE_Payment_GateWay_PK);
+
+
+    console.log(selectedData, selectedData.price)
 
     return (
         <div className='w-full'>
-            <h3>This is my cart.</h3>
             <div className=' w-10/12 mx-auto rounded-lg p-5 bg-white'>
                 <div className='flex justify-between gap-10 w-full'>
                     <h3 className='text-2xl font-bold font-serif'>Total Classes: {cart.length}</h3>
                     <h3 className='text-2xl font-bold font-serif'>Total Price: ${total}</h3>
-                    <Link className='btn btn-warning bg-[#cfa059] font-bold normal-case'>Pay</Link>
+                    <Link to="/dashboard/payment" className='btn btn-warning bg-[#cfa059] font-bold normal-case'>Pay</Link>
                 </div>
-                <div className="overflow-x-auto">
-                    <table className="table rounded-xl overflow-hidden mt-2">
+                <div className="overflow-x-auto ">
+                    <table className="table rounded-xl overflow-hidden mt-2 overflow-auto">
                         {/* head */}
                         <thead className='bg-[#cfa059] text-lg'>
                             <tr>
@@ -62,6 +80,7 @@ const MyCart = () => {
                                 <th>Class Image</th>
                                 <th> Name </th>
                                 <th> Price </th>
+                                <th>Payment</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -87,6 +106,11 @@ const MyCart = () => {
 
                                 <td className='text-lg font-bold'>{data.price} $</td>
 
+                                <td className='overflow-auto '>
+                                    {/* <button className="btn btn-ghost border-0"> Payment </button> */}
+                                    <button className="btn" onClick={() => handleModalData(data)}>Pay</button>
+
+                                </td>
                                 <td>
                                     <button onClick={() => handleDelete(data)} className="btn btn-ghost border-0"> <FaTrashAlt className='text-3xl text-red-500 ' /> </button>
                                 </td>
@@ -97,6 +121,14 @@ const MyCart = () => {
 
 
                     </table>
+
+                    <div className={`absolute w-[500px] h-[300px] shadow-xl bg-white px-10 rounded-xl top-1/2 left-[60%] translate-y-[-50%] translate-x-[-50%] ${display ? "block" : "hidden"} transition-all `}>
+                        <div onClick={() => setDisplay(!display)} className='p-5 border flex float-right rounded-full btn h-14 w-14'><FaTimes className='h-5 w-5'/></div>
+                        <Elements stripe={stripePromise} >
+                            <CheckoutForm id={id} cart={selectedData} price={selectedData?.price || 3}></CheckoutForm>
+                        </Elements>
+                    </div>
+
                 </div>
             </div>
         </div>

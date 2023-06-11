@@ -1,17 +1,19 @@
 import { Link, Outlet } from "react-router-dom";
 import ActiveLink from "../components/ActiveLink/ActiveLink";
-import { FaHome, FaShoppingBag, FaShoppingCart, FaTasks, FaUsers, FaWallet } from "react-icons/fa";
+import { FaElementor, FaHistory, FaHome, FaList, FaListUl, FaShoppingBag, FaShoppingCart, FaTasks, FaUserFriends, FaUsers, FaWallet } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import useCart from "../hooks/useCart";
 import useTitle from "../hooks/useTitle";
 import { SiMetrodelaciudaddemexico } from "react-icons/si";
 import useAdmin from "../hooks/useAdmin";
+import useInstructor from "../hooks/useInstructor";
 
 
 const Dashboard = () => {
     const [cart] = useCart();
     // TODO: load data from the server to have dynamic isAdmin based on Data
     const [isAdmin] = useAdmin();
+    const [isInstructor] = useInstructor();
 
     useTitle("Dashboard")
 
@@ -26,44 +28,51 @@ const Dashboard = () => {
             </div>
             <div className="drawer-side ">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                <ul className="menu p-4 px-10 w-80 h-full bg-[#D1A054]">
+                <ul className="menu p-4 px-5 h-full bg-[#D1A054]">
                     <div className="my-5 mx-auto">
                         <Link to='/' className=''>
-                            <h3 className='text-3xl font-extrabold text-black'>Summer Sport</h3>
-                            <p style={{ letterSpacing: "0.8px" }} className='uppercase py-3  text-black font-bold'>Summer Sports Activities</p>
+                            <h3 className='text-xl font-extrabold text-black'>Summer Sport</h3>
+                            <p style={{ letterSpacing: "" }} className=' py-2 text-black '>Summer Sports Activities</p>
                         </Link>
                     </div>
                     {
-                        isAdmin ? <>
+                        isAdmin && <>
 
-                            <li ><ActiveLink to="/dashboard/"> <div className="py-2 flex gap-3  font-bold text-lg"><FaHome className='text-2xl'></FaHome> Admin Home </div></ActiveLink></li>
-                            <li ><ActiveLink to="/dashboard/addclasses"> <div className="py-2 flex gap-3  font-bold text-lg"><SiMetrodelaciudaddemexico className='text-2xl'></SiMetrodelaciudaddemexico> Add A Class </div> </ActiveLink></li>
-                            <li ><ActiveLink to="/dashboard/manageclass"> <div className="py-2 flex gap-3  font-bold text-lg"><FaTasks className='text-2xl'></FaTasks> Manage Classes </div> </ActiveLink></li>
-                            <li ><ActiveLink to="/dashboard/allusers"> <div className="py-2 flex gap-3  font-bold text-lg"><FaUsers className='text-2xl'></FaUsers> All Users </div> </ActiveLink></li>
+                            <li ><ActiveLink to="/dashboard/"> <div className=" flex gap-3  font-bold py-2 "><FaHome className='text-xl'></FaHome> Admin Home </div></ActiveLink></li>
+                            <li ><ActiveLink to="/dashboard/manageclasses"> <div className="py-2 flex gap-3  font-bold "><FaTasks className='text-xl'></FaTasks> Manage Classes </div> </ActiveLink></li>
+                            <li ><ActiveLink to="/dashboard/allusers"> <div className="py-2 flex gap-3  font-bold "><FaUsers className='text-xl'></FaUsers> All Classes </div> </ActiveLink></li>
+                            <li ><ActiveLink to="/dashboard/allusers"> <div className=" flex gap-3  font-bold py-2 "><FaUsers className='text-xl'></FaUsers> All Users </div> </ActiveLink></li>                            
+                        </>
+                        
+                    }
+                    {
+                        isInstructor && <>
+
+                            <li className="text-black" ><ActiveLink to="/dashboard/"> <div className="py-2 flex gap-3  font-bold "><FaHome className='text-xl'></FaHome> Instructor Home </div></ActiveLink></li>
+                            <li className="text-black" ><ActiveLink to="/dashboard/allclasses"> <div className=" flex gap-3  font-bold py-2 "><FaListUl className='text-xl'></FaListUl> All Classes </div> </ActiveLink></li>
+                            <li className="text-black" ><ActiveLink to="/dashboard/addclasses"> <div className=" flex gap-3  font-bold py-2 "><SiMetrodelaciudaddemexico className='text-xl'></SiMetrodelaciudaddemexico> Add A Class </div> </ActiveLink></li>
+                        </>
+                        
+                    }
+                    {
+                        isAdmin || !isInstructor && <>
+
+                            <li ><ActiveLink to="/dashboard/home"> <div className="py-2 flex gap-3  font-bold "><FaHome className='text-xl'></FaHome> User Home </div></ActiveLink></li>
+                            <li ><ActiveLink to="/dashboard/mycart"> <div className="py-2 flex gap-3  font-bold "><FaList className='text-xl'></FaList> Selected Classes </div> </ActiveLink></li>
+                            <li ><ActiveLink to="/dashboard/enrolledclasses"> <div className="py-2 flex gap-3  font-bold "><FaTasks className='text-xl'></FaTasks> Enrolled Classes </div> </ActiveLink></li>
+                            <li ><ActiveLink to="/dashboard/paymenthistory"> <div className="py-2 flex gap-3  font-bold "><FaHistory className='text-xl'></FaHistory> Payment History </div> </ActiveLink></li>
                             
                         </>
-                            : <>
-
-                                <li ><ActiveLink to="/dashboard/userhome"> <div className="py-3 flex gap-3 text-black font-bold"><FaHome className='text-xl'></FaHome> User Home </div></ActiveLink></li>
-                                <li ><ActiveLink to="/paymentHistory"> <div className="py-3 flex gap-3 text-black font-bold"><FaWallet className='text-xl'></FaWallet> Payment history </div> </ActiveLink></li>
-                                <li>
-                                    <ActiveLink to="/dashboard/myCart"> <FaShoppingCart className='text-xl'></FaShoppingCart>
-                                        <div className="indicator py-3">
-                                            <span className="indicator-item badge badge-yellow">{cart.length || 0}</span>
-                                            <div>My Cart</div>
-                                        </div>
-                                    </ActiveLink>
-                                </li>
-                            </>
+                        
                     }
 
 
                     <hr className="my-10" />
 
                     {/* <li><a>Sidebar Item 2</a></li> */}
-                    <li ><ActiveLink to="/paymentHistory"> <div className="py-3 flex gap-3 text-black font-bold"><FaHome className='text-xl'></FaHome>Home </div> </ActiveLink></li>
-                    <li ><ActiveLink to="/paymentHistory"> <div className="py-3 flex gap-3 text-black font-bold"><FiMenu className='text-xl'></FiMenu>Menu </div> </ActiveLink></li>
-                    <li ><ActiveLink to="/paymentHistory"> <div className="py-3 flex gap-3 text-black font-bold"> <FaShoppingBag className='text-xl'></FaShoppingBag> shop </div> </ActiveLink></li>
+                    <li ><ActiveLink to="/"> <div className="py-1 flex gap-3 text-black font-bold"><FaHome className='text-xl'></FaHome>Home </div> </ActiveLink></li>
+                    <li ><ActiveLink to="/paymentHistory"> <div className="py-1 flex gap-3 text-black font-bold"><FiMenu className='text-xl'></FiMenu>All Classes </div> </ActiveLink></li>
+                    <li ><ActiveLink to="/paymentHistory"> <div className="py-1 flex gap-3 text-black font-bold"> <FaUserFriends className='text-xl'></FaUserFriends> All Instructors </div> </ActiveLink></li>
 
                 </ul>
 

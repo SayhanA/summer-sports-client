@@ -5,11 +5,14 @@ import { Link } from 'react-router-dom';
 import { FaRegUserCircle } from 'react-icons/fa';
 import { AuthContext } from '../../providers/AuthProvider';
 import useCart from '../../hooks/useCart';
+import useAdmin from '../../hooks/useAdmin';
+import useInstructor from '../../hooks/useInstructor';
 // import DarkMode from '../../component/DarkMode/DarkMode';
 
 const NavBar = () => {
     const [open, setOpen] = useState(false);
-    // const [ isAdmin ] = useAdmin();
+    const [ isAdmin ] = useAdmin();
+    const [ isInstructor ] = useInstructor();
     const { user, LogOut } = useContext(AuthContext);
     const [cart] = useCart();
 
@@ -33,7 +36,9 @@ const NavBar = () => {
                 <li className='list-none border-0 border-b-2 md:border-b-0 text-center pb-2 '> <ActiveLink className='hover:text-yellow-300' to="/instructors">Instructors</ActiveLink></li>
                 <li className='list-none border-0 border-b-2 md:border-b-0 text-center pb-2 '> <ActiveLink className='hover:text-yellow-300' to="/classes"> Classes</ActiveLink></li>
                 <li className='list-none border-0 border-b-2 md:border-b-0 text-center pb-2 '> <ActiveLink className='hover:text-yellow-300' to="/contact">Contact</ActiveLink></li>
-                {/* <li className='list-none border-0 border-b-2 text-center pb-2'>                 <ActiveLink to={isAdmin ? '/dashboard/adminhome' : '/dashboard/userhome'}>Dashboard</ActiveLink></li> */}
+                <li className={`list-none border-0 border-b-2 md:border-b-0 text-center pb-2 ${user && isAdmin ? "display" : " hidden "} `}> <ActiveLink className='hover:text-yellow-300' to="/dashboard/adminhome">Dashboard</ActiveLink></li>
+                <li className={`list-none border-0 border-b-2 md:border-b-0 text-center pb-2 ${user && isInstructor ? "display" : " hidden "} `}> <ActiveLink className='hover:text-yellow-300' to="/dashboard/instructorhome">Dashboard</ActiveLink></li>
+                <li className={`list-none border-0 border-b-2 md:border-b-0 text-center pb-2 ${user && !isAdmin && !isInstructor ? "display" : " hidden "} `}> <ActiveLink className='hover:text-yellow-300' to="/dashboard/home">Dashboard</ActiveLink></li>
             </div>
 
             <button className="text-white ">
@@ -54,31 +59,6 @@ const NavBar = () => {
                     </div>
 
                 </Link>
-
-                {/* {
-                    user && <div className={location.pathname == '/login' || location.pathname == '/register' ? "hidden" : "dropdown dropdown-end z-50"}>
-                        <Link to="/dashboard/mycart" tabIndex={1} className="btn btn-ghost btn-circle">
-                            <div className={` ${location.pathname == '/blog' || location.pathname == '/favorite' || location.pathname == '/aboutUs' ? "indicator" : "text-white indicator"}`}>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-                                <span className="badge badge-sm badge-error indicator-item font-bold">{cart?.length || 0}</span>
-                            </div>
-
-                        </Link>
-                        <div tabIndex={1} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow rounded-md z-50">
-                            <div className="card-body rounded-sm">
-                                {item.length === 0 ? <p className=' text-center font-bold'>Please add some recipes</p> : <span className="font-bold text-lg ">{item.length} Items</span>}
-                                <div className=''>
-                                    {
-                                        item?.map(id => <p key={id} className=' flex justify-between mb-2'>{id} <FaTrashAlt className='text-red-500' /> </p>)
-                                    }
-                                </div>
-                                <div className="card-actions">
-                                    <button className="btn btn-warning h-5 btn-block normal-case">Clear all</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                } */}
 
             </div>
 

@@ -13,7 +13,6 @@ const AddClasses = () => {
 
     const onSubmit = data => {
         setImgLoading(true);
-        data.status = 'pending';
         data.email = user.email;
         data.instructor = user.displayName;
         console.log(data);

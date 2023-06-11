@@ -3,15 +3,20 @@ import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import Rating from "react-rating";
 import { AiFillLike } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 
 const PopularInstructors = () => {
+    const {user} = useAuth()
     const location = useLocation();
     // console.log(location.pathname)
 
     const [classes, setClasses] = useState([])
 
     useEffect(() => {
+        if(!user){
+            return
+        }
         fetch('http://localhost:5000/instructor')
             .then(res => res.json())
             .then(data => {
