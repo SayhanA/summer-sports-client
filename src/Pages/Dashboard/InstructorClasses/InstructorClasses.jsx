@@ -23,7 +23,7 @@ const InstructorClass = () => {
         
 
     return (
-        <div className='w-full px-20'>
+        <div className='w-full '>
             <h3 className='text-2xl font-serif text-center font-bold py-10'>Instructor Classes</h3>
             <div className='bg-white p-10 rounded-xl'>
                 <table className="table rounded-xl overflow-hidden mt-2">
@@ -35,7 +35,7 @@ const InstructorClass = () => {
                             <th> Name </th>
                             <th> Price </th>
                             <th> Status </th>
-                            <th> Status </th>
+                            <th> Feedback </th>
                             <th>Post Date</th>
                             <th>Action</th>
                         </tr>
@@ -63,6 +63,7 @@ const InstructorClass = () => {
                             <td className='text-lg font-bold'>{data.price} $</td>
                             <td className=' font-bold'>{data?.status ? data?.status : "Pending"}</td>
 
+                            <td> <div className='text-[14px]'>{data?.feedback}</div> </td>
                             <td>{moment(data.date).format("MMM Do YY")}</td>
                             
                             <td>

@@ -9,7 +9,7 @@ const TopClasses = () => {
     // console.log(location.pathname)
 
     useEffect(() => {
-        fetch('http://localhost:5000/classes')
+        fetch('http://localhost:5000/classes/all')
             .then(res => res.json())
             .then(data => {
                 setClasses(data)
@@ -22,7 +22,7 @@ const TopClasses = () => {
     return (
         <>
             {
-                location.pathname !== '/classes' ? <div className='grid lg:grid-cols-3 gap-10'>
+                location.pathname !== '/classes' ? <div className='grid lg:grid-cols-3 gap-5'>
                     {
                         classes.splice(0, 6).map(data => <ClassCard data={data} key={data._id} />)
                     }

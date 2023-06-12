@@ -23,7 +23,7 @@ const Home = () => {
                 </div>
             </div>
 
-            <div className=" bg-[url('https://kids-club.bold-themes.com/main-demo/wp-content/uploads/sites/2/2017/01/preschool-06-new.jpg')] bg-center bg-cover">
+            <div className="w-full bg-[url('https://kids-club.bold-themes.com/main-demo/wp-content/uploads/sites/2/2017/01/preschool-06-new.jpg')] bg-center bg-cover">
                 <RunningPrograms />
             </div>
 

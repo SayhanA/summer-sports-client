@@ -23,6 +23,7 @@ import UserHome from "../Pages/Dashboard/UserHome/UserHome";
 import EnrolledClasses from "../Pages/Dashboard/EnrolledClasses/EnrolledClasses";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 import InstructorClass from "../Pages/Dashboard/InstructorClasses/InstructorClasses";
+import Profile from "../Pages/Profile";
 
 const router = createBrowserRouter([
     {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/instructor/:name",
-                element: <InstructorClasses />
+                element: <PrivateRouter><InstructorClasses /></PrivateRouter>
             },
             {
                 path: "classes",
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
             {
                 path: "signUp",
                 element: <SingUp />
+            },
+            {
+                path: "profile",
+                element: <Profile />
             },
         ]
     },

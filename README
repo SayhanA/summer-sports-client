@@ -1,0 +1,54 @@
+
+# The Summer Sport Website
+
+### Describing about summer sports website clinet site ...
+***
+* This is a Web sight showing childens summer vacation extra activity classes.
+
+* Home: Home page have a Banner, Popular Classes Section Popular Instructors Section and a review section
+
+* Instructors Page: On the Instructors page there are all Instructors and there classes detils.
+
+* Classes page: On the classes the here displayed all classes. User can apply a class form clicking apply button.
+
+* Student Dashboard: In the stuednts Dashboard a Student can see added classes and can pay or delete class.
+
+
+
+* blog: In the blog page there are some questions and answers.
+
+### // packages/ technology: 
+* @stripe/react-stripe-js,
+* @stripe/stripe-js,
+* @tanstack/react-query,
+* axios,
+* firebase,
+* flowbite,
+* flowbite-react,
+* framer-motion,
+* jsonwebtoken,
+* localforage,
+* match-sorter,
+* moment,
+* react,
+* react-countdown,
+* react-dom,
+* react-hook-form,
+* react-icons,
+* react-query,
+* react-rating,
+* react-router-dom,
+* react-toastify,
+* sort-by,
+* sweetalert2,
+* swiper,
+
+## 🔗 Links
+* ### [Web site Link]: https://summer-sports-e823d.web.app
+* ### [Client Repo Link]:https://github.com/programming-hero-web-course1/b712-summer-camp-client-side-SayhanA
+
+
+* ### [Server Repo Link]: https://github.com/programming-hero-web-course1/b7a12-summer-camp-server_side-SayhanA
+
+
+

@@ -7,12 +7,13 @@ import { AuthContext } from '../../providers/AuthProvider';
 import useCart from '../../hooks/useCart';
 import useAdmin from '../../hooks/useAdmin';
 import useInstructor from '../../hooks/useInstructor';
-// import DarkMode from '../../component/DarkMode/DarkMode';
+import DarkMode from '../../components/DarkMode/DarkMode';
+
 
 const NavBar = () => {
     const [open, setOpen] = useState(false);
-    const [ isAdmin ] = useAdmin();
-    const [ isInstructor ] = useInstructor();
+    const [isAdmin] = useAdmin();
+    const [isInstructor] = useInstructor();
     const { user, LogOut } = useContext(AuthContext);
     const [cart] = useCart();
 
@@ -26,8 +27,8 @@ const NavBar = () => {
             </div>
             <div className=" z-20 lg:navbar-center lg:mr-auto relative -left-9 lg:left-0 mr-auto">
                 <Link to='/' className='text-white hover:text-yellow-300 transition-all'>
-                    <h3 className='text-3xl font-extrabold'>Summer Sport</h3>
-                    <p style={{ letterSpacing: "0.3px" }} className='uppercase'>Summer Sports Activities</p>
+                    <h3 className='text-2xl font-extrabold'>Summer Sport</h3>
+                    <p style={{ letterSpacing: "0.3px" }} className='uppercase text-[14px]'>Summer Sports Activities</p>
                 </Link>
             </div>
 
@@ -35,18 +36,18 @@ const NavBar = () => {
                 <li className='list-none border-0 border-b-2 md:border-b-0 text-center pb-2 '> <ActiveLink className='hover:text-yellow-300' to="/">Home</ActiveLink></li>
                 <li className='list-none border-0 border-b-2 md:border-b-0 text-center pb-2 '> <ActiveLink className='hover:text-yellow-300' to="/instructors">Instructors</ActiveLink></li>
                 <li className='list-none border-0 border-b-2 md:border-b-0 text-center pb-2 '> <ActiveLink className='hover:text-yellow-300' to="/classes"> Classes</ActiveLink></li>
-                <li className='list-none border-0 border-b-2 md:border-b-0 text-center pb-2 '> <ActiveLink className='hover:text-yellow-300' to="/contact">Contact</ActiveLink></li>
+                {/* <li className='list-none border-0 border-b-2 md:border-b-0 text-center pb-2 '> <ActiveLink className='hover:text-yellow-300' to="/contact">Contact</ActiveLink></li> */}
                 <li className={`list-none border-0 border-b-2 md:border-b-0 text-center pb-2 ${user && isAdmin ? "display" : " hidden "} `}> <ActiveLink className='hover:text-yellow-300' to="/dashboard/adminhome">Dashboard</ActiveLink></li>
                 <li className={`list-none border-0 border-b-2 md:border-b-0 text-center pb-2 ${user && isInstructor ? "display" : " hidden "} `}> <ActiveLink className='hover:text-yellow-300' to="/dashboard/instructorhome">Dashboard</ActiveLink></li>
                 <li className={`list-none border-0 border-b-2 md:border-b-0 text-center pb-2 ${user && !isAdmin && !isInstructor ? "display" : " hidden "} `}> <ActiveLink className='hover:text-yellow-300' to="/dashboard/home">Dashboard</ActiveLink></li>
             </div>
 
-            <button className="text-white ">
+            {/* <button className=" border-red-500 ">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-            </button>
-            {/* <div className='sm:static absolute top-[60px] right-3' title='Active Dark Mode'>
+            </button> */}
+            <div className='' title='Active Dark Mode'>
                 <DarkMode />
-            </div> */}
+            </div>
             <div>
 
                 {/* { location.pathname == '/login' || location.pathname == '/register' ? "" : "" } */}
@@ -63,8 +64,8 @@ const NavBar = () => {
             </div>
 
             {
-                user ? <div>
-                    <div className="dropdown dropdown-end">
+                user ? <div className='mb-2'>
+                    <div className="dropdown dropdown-end ">
                         <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                             <div className="w-10 rounded-full">
                                 {/* <img src={user?.photoURL} /> */}
@@ -82,7 +83,7 @@ const NavBar = () => {
                                 </Link>
                             </li>
                             {/* <li><a>Settings</a></li> */}
-                            <li onClick={() => LogOut()} title='Click here to logOut'><a className='z-50 text-black font-bold' >Logout</a></li>
+                            <li onClick={() => LogOut()} title='Click here to logOut'><a className='z-50  font-bold' >Logout</a></li>
                         </ul>
                     </div>
                 </div>

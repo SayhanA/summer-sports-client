@@ -1,12 +1,13 @@
 import { FaTrashAlt } from "react-icons/fa";
 import useClasses from "../../../hooks/useClasses";
 import Swal from "sweetalert2";
-import { useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useState } from "react";
 
 const ManageClasses = () => {
     const [axiosSecure] = useAxiosSecure();
-    const [classes, loading, refetch] = useClasses();
+    const [classes, , refetch] = useClasses();
+    const [item, setItem] = useState('')
 
 
     const handleDelete = (data) => {
@@ -37,33 +38,20 @@ const ManageClasses = () => {
                             })
                         }
                     })
-
-                // fetch(`http://localhost:5000/classes/${id}`, {
-                //     method: "DELETE",
-                // })
-                //     .then(res => res.json())
-                //     .then(data => {
-                //         console.log(data)
-                //         if (data.deletedCount > 0) {
-                //             refetch();
-                //             Swal.fire({
-                //                 position: 'top-end',
-                //                 icon: 'success',
-                //                 title: { data } + "created",
-                //                 showConfirmButton: false,
-                //                 timer: 1500
-                //             })
-                //         }
-                //     })
             }
         })
     }
 
-    // console.log(classes);
 
     const handleStatus = (data, item) => {
 
         console.log(data, item)
+
+        if (data === 'deny') {
+            setItem(item);
+            return window.my_modal_3.showModal();
+        }
+
 
         fetch(`http://localhost:5000/classes/admin/${item._id}?role=${data}`, {
             method: "PATCH",
@@ -81,26 +69,42 @@ const ManageClasses = () => {
                     })
                     refetch()
                 }
-
-                // if (data.modifiedCount) {
-                //     // refetch();
-                //     setIsStatus(data)
-                //     Swal.fire({
-                //         position: 'top-end',
-                //         icon: 'success',
-                //         title: { data } + "created",
-                //         showConfirmButton: false,
-                //         timer: 1500
-                //     })
-                // }
             })
     }
 
+    const handleSubmitFeedback = event => {
+        // event.preventDefault();
+        console.log("getting form form", event.target.feedback.value)
+        const feedback = event.target.feedback.value;
+
+        // const newItem = {...item, feedback}
+
+        fetch(`http://localhost:5000/classes/admin/${item._id}?role=${'deny'}&data=${feedback}`, {
+            method: "PATCH",
+            body: feedback
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+
+                if (data.modifiedCount > 0) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: { data } + "created",
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    refetch()
+                }
+            })
+    }
+
+
     // TODO: Display only Approved Classes in All Classes page
     return (
-        <div>
+        <div className="mb-20">
             <h3 className="text-2xl font-bold font-serif text-center pt-10 pb-5"> Manage Classes</h3>
-            <table className="table rounded-xl overflow-hidden mt-2">
+            <table className="table rounded-xl mt-2">
                 {/* head */}
                 <thead className='bg-[#cfa059] text-lg'>
                     <tr>
@@ -114,7 +118,7 @@ const ManageClasses = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {classes.map((data, index) => <tr key={data._id}>
+                    {classes.map((data) => <tr key={data._id}>
 
                         <td>
                             <div className="avatar">
@@ -153,9 +157,18 @@ const ManageClasses = () => {
 
 
                 </tbody>
-
-
             </table>
+
+            {/* You can open the modal using ID.showModal() method */}
+            {/* <button className="btn" onClick={() => window.my_modal_3.showModal()}>open modal</button> */}
+            <dialog id="my_modal_3" className="modal">
+                <form onSubmit={handleSubmitFeedback} method="dialog" className="modal-box">
+                    <button htmlFor="my-modal-3" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    <h3 className="text-xl font-bold font-serif text-center py-5 bg-white">Admin FeedBack Panel</h3>
+                    <textarea name="feedback" className="w-full h-[200px] rounded-xl border border-gray-300 px-5" placeholder="Write some feedback and reson to deny" ></textarea>
+                    <input className="btn" type="submit" name="" id="" />
+                </form>
+            </dialog>
         </div>
     );
 };
