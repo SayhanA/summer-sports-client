@@ -40,7 +40,7 @@ const ClassCard = ({ data }) => {
         console.log(item)
         if (user && user.email) {
             const appliedClass = { classId: _id, sport, description, availableSeats, instructor, sportImg, coachImg, name, price, email:user.email  }
-            fetch('http://localhost:5000/carts', {
+            fetch('https://b7a12-summer-camp-server-side-sayhan-a.vercel.app/carts', {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'
@@ -50,7 +50,7 @@ const ClassCard = ({ data }) => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.insertedId) {
-                        refetch();
+                        console.log("Your data is clicked ----------------------------------------------------------------")
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -82,7 +82,7 @@ const ClassCard = ({ data }) => {
 
     return (
         <div className={`card bg-base-200 shadow-sm card-container rounded-md ${availableSeats === 0 && "bg-red-500"}`}>
-            <div className={`w-full h-[380px] bg-cover relative`}>
+            <div className={`w-full md:h-[380px] h-[250px] bg-cover relative`}>
                 <img src={sportImg} className='w-full h-full rounded-md' alt="" />
                 <div className='add-body flex flex-col h-full items-center bg-[#ffffffb9] hover:bg-[#4e98ffe6] w-full gap-4 justify-center absolute  z-0 '>
                     <div className='icon text-7xl text-gray-500 border-2 flex justify-center items-center border-gray-500 rounded-full w-[80px] h-[80px]' >+</div>
@@ -90,12 +90,12 @@ const ClassCard = ({ data }) => {
                     <div className='Instructor text-3xl font-extrabold font-mono' >{instructor}</div>
                 </div>
             </div>
-            <div className="card-body z-20">
+            <div className="md:card-body p-3 z-20">
                 <h2 className="card-title">
                     {sport}
                     <div className="badge badge-secondary">{200 - availableSeats}</div>
                 </h2>
-                <p>{description}</p>
+                <p className='text-sm md:text-md'>{description}</p>
                 {
                     location.pathname === "/classes" && <div>
                         <p className='text-[17px]'> <span className='font-bold'>Instructor:</span> Coach {instructor} </p>

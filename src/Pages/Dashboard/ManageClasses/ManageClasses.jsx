@@ -53,7 +53,7 @@ const ManageClasses = () => {
         }
 
 
-        fetch(`http://localhost:5000/classes/admin/${item._id}?role=${data}`, {
+        fetch(`https://b7a12-summer-camp-server-side-sayhan-a.vercel.app/classes/admin/${item._id}?role=${data}`, {
             method: "PATCH",
         })
             .then(res => res.json())
@@ -79,7 +79,7 @@ const ManageClasses = () => {
 
         // const newItem = {...item, feedback}
 
-        fetch(`http://localhost:5000/classes/admin/${item._id}?role=${'deny'}&data=${feedback}`, {
+        fetch(`https://b7a12-summer-camp-server-side-sayhan-a.vercel.app/classes/admin/${item._id}?role=${'deny'}&data=${feedback}`, {
             method: "PATCH",
             body: feedback
         })

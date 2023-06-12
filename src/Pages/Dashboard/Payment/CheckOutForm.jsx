@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 import './CheckoutForm.css'
+import Swal from 'sweetalert2';
 
 
 const CheckoutForm = ({ id, cart, price }) => {
@@ -81,6 +82,7 @@ const CheckoutForm = ({ id, cart, price }) => {
 
         if (paymentIntent?.status === 'succeeded') {
             setTransactionId(paymentIntent.id)
+            
             // const transactionId = paymentIntent.id;
             // const payments = {
             //     email: user?.email, transactionId, price,

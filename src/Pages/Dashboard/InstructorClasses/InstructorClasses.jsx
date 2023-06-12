@@ -4,7 +4,6 @@ import useAuth from '../../../hooks/useAuth';
 import { FaTrashAlt } from 'react-icons/fa';
 import moment from 'moment';
 
-// TODO: If the Class is in the denied state by the admin, at that time, an admin can write feedback explaining why the Class was denied, which will appear in the feedback column
 const InstructorClass = () => {
     const [classes, setClasses] = useState([]);
 

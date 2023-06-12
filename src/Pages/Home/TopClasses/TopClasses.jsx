@@ -9,15 +9,13 @@ const TopClasses = () => {
     // console.log(location.pathname)
 
     useEffect(() => {
-        fetch('http://localhost:5000/classes/all')
+        fetch('https://b7a12-summer-camp-server-side-sayhan-a.vercel.app/classes/all')
             .then(res => res.json())
             .then(data => {
                 setClasses(data)
             })
             .catch(error => console.log(error))
     }, [])
-
-    // console.log("data form classes",classes)
 
     return (
         <>

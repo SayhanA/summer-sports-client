@@ -10,7 +10,6 @@ import { useForm } from "react-hook-form";
 
 const Profile = () => {
     const [name, setNames] = useState();
-    const [photo, setPhoto] = useState();
     const [rating, setRating] = useState(0)
     const { user, loading, UpdateUser } = useAuth();
     const [isAdmin] = useAdmin()
@@ -23,15 +22,13 @@ const Profile = () => {
         setNames(name)
 
         const photo = form.photo.value;
-        setPhoto(photo)
-
         console.log(name, photo);
         UpdateUser(name, photo);
         form.reset();
 
     }
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     const onSubmit = data => console.log(data);
 
     const handleImage = () => {

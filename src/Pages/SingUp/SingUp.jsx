@@ -18,23 +18,18 @@ const SignUp = () => {
     const onSubmit = data => {
 
         const userName = data.firstName + " " + data.lastName;
-        // TODO: user photo dynamic
         const userPhoto = data.image[0]
 
-
-
-
-        // const userPhoto = 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80'
-
         if (data.password === data.confirmPassword) {
+            const email = data.email.toLowerCase();
+
             // TODO: navigate, show error on page.
-            SignUp(data.email, data.password)
+            SignUp(email, data.password)
                 .then(userCredential => {
                     const user = userCredential.user;
                     console.log(user)
 
                     // Update user name and image
-
                     useImgHook(userPhoto)
                         .then(res => res.json())
                         .then(userImgRes => {
@@ -49,7 +44,7 @@ const SignUp = () => {
 
                                         const saveUser = { name: userName, email: data.email }
 
-                                        fetch('http://localhost:5000/users', {
+                                        fetch('https://b7a12-summer-camp-server-side-sayhan-a.vercel.app/users', {
                                             method: "POST",
                                             headers: {
                                                 'content-type': 'application/json'
@@ -71,8 +66,6 @@ const SignUp = () => {
                                                     navigate('/')
                                                 }
                                             })
-
-
                                     })
                                     .catch(error => {
                                         console.log(error.message)
@@ -84,7 +77,6 @@ const SignUp = () => {
                 .catch(error => {
                     console.log(error.message)
                 })
-
         }
         else {
             console.log('set password and confirm password are not same.')

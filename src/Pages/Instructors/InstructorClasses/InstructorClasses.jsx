@@ -8,7 +8,7 @@ const InstructorClasses = () => {
 
     // TODO It will be private & only an instructor can access this route.
     useEffect(() => {
-        fetch(`http://localhost:5000/instructor/${name}`)
+        fetch(`https://b7a12-summer-camp-server-side-sayhan-a.vercel.app/instructor/${name}`)
             .then(res => res.json())
             .then(data => {
                 setClasses(data)

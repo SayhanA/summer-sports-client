@@ -37,7 +37,7 @@ const AllUsers = () => {
         }
         
 
-        fetch(`http://localhost:5000/users/admin/${item._id}?role=${data}`, {
+        fetch(`https://b7a12-summer-camp-server-side-sayhan-a.vercel.app/users/admin/${item._id}?role=${data}`, {
             method: "PATCH",
         })
             .then(res => res.json())
@@ -71,7 +71,7 @@ const AllUsers = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000 /users/${id}`, {
+                fetch(`https://b7a12-summer-camp-server-side-sayhan-a.vercel.app /users/${id}`, {
                     method: "DELETE",
                 })
                     .then(res => res.json())

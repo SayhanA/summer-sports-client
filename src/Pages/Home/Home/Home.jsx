@@ -12,12 +12,12 @@ const Home = () => {
         <div>
             <Banner />
             <div className="w-10/12 mx-auto mb-20">
-                <h3 className="md:text-4xl my-10 text-center font-bold font-serif">Popular Classes</h3>
+                <h3 className="md:text-4xl text-xl my-10 text-center font-bold font-serif">Popular Classes</h3>
                 <TopClasses />
             </div>
 
             <div>
-                <h3 className='text-4xl text-center mx-auto pb-10 font-serif font-bold'>Top Rated Instructors</h3>
+                <h3 className='md:text-4xl text-xl text-center mx-auto pb-10 font-serif font-bold'>Top Rated Instructors</h3>
                 <div className='w-10/12 mx-auto'>
                     <PopularInstructors />
                 </div>
